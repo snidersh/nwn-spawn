@@ -1,6 +1,7 @@
 //
 //
-//   Spawn v6.6
+//   Spawn v6.7
+//   Spawn_Readme
 //
 //
 //   Neshke Narovken
@@ -76,7 +77,7 @@
 //     You must use the ResRef
 //
 //   Available Flags:
-//     SP00_IS0D000_ID00_FT00_SN00M00_SA00_SR00M00_SD00M00_CL00M00_RG000C00
+//     SP00_IS0D000_ID00_FT00_SN00M00_SA00_SR00M00P_SD00M00_CL00M00_RG000C00
 //     _RWR00_DY00T00_HR00T00_DOD_NOD_PC00R_SF_SU00_FX000D000_PR00T0
 //     _PL0T00_EE00R00_EX00R00_SG_CD000T0_LT00_DS0S000_DI00_CMD000
 //     _SS000D000_CC00_CP00R00_TR00D00_AE000D000_OE000D000_RS00_FC0
@@ -126,12 +127,14 @@
 //   : Optional Flag: 00
 //   :   Spawn 00 Children per Cycle
 //
-//   SR00|M00
+//   SR00|M00|P
 //   : Spawn Radius
 //   : Randomly Spawns Children in a
 //   : Location SR00 to SR99 Meters from Waypoint
 //   : Optional Flag: M00
 //   :   Minimum Radius, M00 to SR99 Meters
+//   : Optional Flag: P
+//   :   Spawn Center is Near a Random PC in Area
 //
 //   SD00|M00
 //   : Spawn Delay
@@ -501,12 +504,14 @@
 // Package Header
 //
 /*
-Spawn v6.6
+Spawn v6.7
 
 Neshke Narovken
 neshke@anamnaeireann.org
 
 See 'spawn__readme' for Instructions
+Ignore all 'Missing Resource' Errors
+See the NWN Forums for More Info
 
 Spawn Package:
 - spawn__readme

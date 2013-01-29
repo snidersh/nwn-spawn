@@ -1,6 +1,7 @@
 //
 //
-//   Spawn v6.6
+//   Spawn v6.7
+//   Spawn Main
 //
 //   Do NOT Modify this File
 //   See 'spawn__readme' for Instructions
@@ -33,6 +34,7 @@ int SetSpawns(location lBase);
 string PadIntToString(int nInt, int nDigits);
 int CountPCsInArea(object oArea = OBJECT_INVALID, int nDM = FALSE);
 int CountPCsInRadius(location lCenter, float fRadius, int nDM = FALSE);
+object GetRandomPCInArea(object oArea, object oSpawn);
 int ParseFlagValue(string sName, string sFlag, int nDigits, int nDefault);
 int ParseSubFlagValue(string sName, string sFlag, int nDigits, string sSubFlag, int nSubDigits, int nDefault);
 int IsBetweenDays(int nCheckDay, int nDayStart, int nDayEnd);
@@ -295,6 +297,7 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
     // Initialize SpawnRadius
     float fSpawnRadius = GetLocalFloat(oSpawn, "f_SpawnRadius");
     float fSpawnRadiusMin = GetLocalFloat(oSpawn, "f_SpawnRadiusMin");
+    int nSpawnNearPCs = GetLocalInt(oSpawn, "f_SpawnNearPCs");
 
     // Initialize SpawnUnseen
     float fSpawnUnseen = GetLocalFloat(oSpawn, "f_SpawnUnseen");
@@ -1106,7 +1109,7 @@ void DoSpawn(object oSpawn)
     vector vSpawn, vRadius;
     location lRadius, lEntranceExit, lSpawnLocation;
     float fRadius, fRadiusX, fRadiusY, fSpawnAngle;
-    object oSpawned, oFaction, oEntranceExit, oSpawnLocation;
+    object oSpawned, oFaction, oEntranceExit, oSpawnLocation, oPC;
     effect eSpawn, eArea, eObject;
     int nGoldAmount, nObjectType, nChildLifespan, nRadiusValid;
     int nRndEntranceExit, nChildrenSpawned, nRndSpawnLocation, nSpawnCount;
@@ -1122,6 +1125,7 @@ void DoSpawn(object oSpawn)
     int nSpawnNumber = GetLocalInt(oSpawn, "f_SpawnNumber");
     float fSpawnRadius = GetLocalFloat(oSpawn, "f_SpawnRadius");
     float fSpawnRadiusMin = GetLocalFloat(oSpawn, "f_SpawnRadiusMin");
+    int nSpawnNearPCs = GetLocalInt(oSpawn, "f_SpawnNearPCs");
     int nRandomWalk = GetLocalInt(oSpawn, "f_RandomWalk");
     float fWanderRange = GetLocalFloat(oSpawn, "f_WanderRange");
     int nRandomGold = GetLocalInt(oSpawn, "f_RandomGold");
@@ -1190,6 +1194,16 @@ void DoSpawn(object oSpawn)
     // Set up Location
     if (fSpawnRadius > 0.0)
     {
+        // Check SpawnNearPCs
+        if (nSpawnNearPCs == TRUE)
+        {
+            oPC =  GetRandomPCInArea(OBJECT_SELF, oSpawn);
+            if (oPC != OBJECT_INVALID)
+            {
+                lSpawn = GetLocation(oPC);
+            }
+        }
+
         vSpawn = GetPositionFromLocation(lSpawn);
         fSpawnAngle = IntToFloat(Random(361));
         if (fSpawnRadiusMin == fSpawnRadius)

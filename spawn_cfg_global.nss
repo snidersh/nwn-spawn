@@ -1,4 +1,5 @@
 //
+// Spawn v6.7
 // Spawn Global Defaults
 //
 
@@ -115,6 +116,7 @@ void SetGlobalDefaults()
     // SpawnRadius
     int nSpawnRadius = 0;
     int nSpawnRadiusMin = 0;
+    int nSpawnNearPCs = 0;
 
     // SU00
     // SpawnUnseen
@@ -269,6 +271,7 @@ void SetGlobalDefaults()
     SetLocalInt(oModule, "df_ChildLifespanMin", nChildLifespanMin);
     SetLocalInt(oModule, "df_SpawnRadius", nSpawnRadius);
     SetLocalInt(oModule, "df_SpawnRadiusMin", nSpawnRadiusMin);
+    SetLocalInt(oModule, "df_SpawnNearPCs", nSpawnNearPCs);
     SetLocalInt(oModule, "df_SpawnUnseen", nSpawnUnseen);
     SetLocalInt(oModule, "df_CorpseDecay", nCorpseDecay);
     SetLocalInt(oModule, "df_CorpseDecayType", nCorpseDecayType);

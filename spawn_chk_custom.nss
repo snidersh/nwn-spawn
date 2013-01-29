@@ -25,7 +25,6 @@ int SpawnCheckCustom(object oSpawn)
 // Only Make Modifications Between These Lines
 // -------------------------------------------
 
-
     // Check 00
     if (nSpawnCheckCustom == 0)
     {
@@ -82,7 +81,6 @@ int SpawnCheckCustom(object oSpawn)
            nProcessSpawn = TRUE;
     }
     //
-
 
 
 // -------------------------------------------

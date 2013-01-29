@@ -1,4 +1,5 @@
 //
+// Spawn v6.7
 // Spawn Functions
 //
 void InitFlags(object oSpawn, string sSpawnName);
@@ -23,6 +24,7 @@ void AddChild(object oSpawn, object oSpawned);
 //
 int CountPCsInArea(object oArea = OBJECT_INVALID, int nDM = FALSE);
 int CountPCsInRadius(location lCenter, float fRadius, int nDM = FALSE);
+object GetRandomPCInArea(object oArea, object oSpawn);
 void TransferItem(object oCreature, object oTarget, object oItem, int nCreatureItem);
 void TransferAllItems(object oCreature, object oTarget, int nCreatureItems, int nEquippedItems);
 void RandomWalk(object oSpawn, object oSpawned, float fWalkingRadius, int nRun);
@@ -100,6 +102,7 @@ void InitFlags(object oSpawn, string sSpawnName)
     int dfChildLifespanMin = GetLocalInt(oModule, "df_ChildLifespanMin");
     int dfSpawnRadius = GetLocalInt(oModule, "df_SpawnRadius");
     int dfSpawnRadiusMin = GetLocalInt(oModule, "df_SpawnRadiusMin");
+    int dfSpawnNearPCs = GetLocalInt(oModule, "df_SpawnNearPCs");
     int dfSpawnUnseen = GetLocalInt(oModule, "df_SpawnUnseen");
     int dfCorpseDecay = GetLocalInt(oModule, "df_CorpseDecay");
     int dfCorpseDecayType = GetLocalInt(oModule, "df_CorpseDecayType");
@@ -407,6 +410,7 @@ void InitFlags(object oSpawn, string sSpawnName)
     // Initialize SpawnRadius
     float fSpawnRadius = IntToFloat(ParseFlagValue(sSpawnName, "SR", 2, dfSpawnRadius));
     float fSpawnRadiusMin = IntToFloat(ParseSubFlagValue(sSpawnName, "SR", 2, "M", 2, dfSpawnRadiusMin));
+    int nSpawnNearPCs = ParseSubFlagValue(sSpawnName, "SR", 0, "P", 0, dfSpawnNearPCs);
     if (fSpawnRadiusMin > fSpawnRadius)
     {
         fSpawnRadiusMin = 0.0;
@@ -415,6 +419,7 @@ void InitFlags(object oSpawn, string sSpawnName)
     // Record SpawnRadius
     SetLocalFloat(oSpawn, "f_SpawnRadius", fSpawnRadius);
     SetLocalFloat(oSpawn, "f_SpawnRadiusMin", fSpawnRadiusMin);
+    SetLocalInt(oSpawn, "f_SpawnNearPCs", nSpawnNearPCs);
 
     // Initialize SpawnUnseen
     float fSpawnUnseen = IntToFloat(ParseFlagValue(sSpawnName, "SU", 2, dfSpawnUnseen));
@@ -695,6 +700,16 @@ int CountPCsInRadius(location lCenter, float fRadius, int nDM = FALSE)
         oPC = GetNextObjectInShape(SHAPE_SPHERE, fRadius, lCenter);
     }
     return nPCs;
+}
+//
+
+// This Function Returns a Random PC from Area
+object GetRandomPCInArea(object oArea, object oSpawn)
+{
+    int nPCsInArea = CountPCsInArea(oArea, TRUE);
+    int nNth = Random(nPCsInArea) + 1;
+    object oRandomPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oSpawn, nNth);
+    return oRandomPC;
 }
 //
 
