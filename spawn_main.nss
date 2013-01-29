@@ -1,6 +1,6 @@
 //
 //
-//   Spawn v6.8
+//   Spawn v6.9
 //   Spawn Main
 //
 //   Do NOT Modify this File
@@ -224,7 +224,10 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
     int nDelayMinimum = GetLocalInt(oSpawn, "f_DelayMinimum");
 
     // Initialize SpawnNumber
+    int nRndSpawnNumber;
     int nSpawnNumber = GetLocalInt(oSpawn, "f_SpawnNumber");
+    int nSpawnNumberMax = GetLocalInt(oSpawn, "f_SpawnNumberMax");
+    int nSpawnNumberMin = GetLocalInt(oSpawn, "f_SpawnNumberMin");
     int nSpawnAllAtOnce = GetLocalInt(oSpawn, "f_SpawnAllAtOnce");
     int nSpawnNumberAtOnce = GetLocalInt(oSpawn, "f_SpawnNumberAtOnce");
     int nSpawnNumberAtOnceMin = GetLocalInt(oSpawn, "f_SpawnNumberAtOnceMin");
@@ -868,6 +871,17 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
 
     // Record SpawnCount
     SetLocalInt(oSpawn, "SpawnCount", nSpawnCount);
+    if (nSpawnCount == 0 && nSpawnNumberMin > -1)
+    {
+        nRndSpawnNumber = Random(nSpawnNumberMax + 1);
+        while (nRndSpawnNumber < nSpawnNumberMin)
+        {
+            nRndSpawnNumber = Random(nSpawnNumberMax + 1);
+        }
+        nSpawnNumber = nRndSpawnNumber;
+        nEmptyChildSlots = nSpawnNumber;
+        SetLocalInt(oSpawn, "f_SpawnNumber", nSpawnNumber);
+    }
 
     // Check InitialState
     if (nInitialState == 0)
@@ -982,6 +996,10 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
         {
             if (nEntranceExit > -1)
             {
+                fEntranceExitX = GetLocalFloat(oCreature, "EntranceExitX");
+                fEntranceExitY = GetLocalFloat(oCreature, "EntranceExitY");
+                vEntranceExit = Vector(fEntranceExitX, fEntranceExitY, 0.0);
+                lEntranceExit = Location(OBJECT_SELF, vEntranceExit, 0.0);
                 oCreature = GetFirstObjectInShape(SHAPE_SPHERE, fSpawnUnseen, lEntranceExit, FALSE, OBJECT_TYPE_CREATURE);
             }
             else

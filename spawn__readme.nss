@@ -1,6 +1,6 @@
 //
 //
-//   Spawn v6.8
+//   Spawn v6.9
 //   Spawn_Readme
 //
 //
@@ -508,7 +508,7 @@
 // Package Header
 //
 /*
-Spawn v6.8
+Spawn v6.9
 
 Neshke Narovken
 neshke@anamnaeireann.org
@@ -540,4 +540,8 @@ Spawn Package:
 - spawn_sc_patrol
 - spawn_sc_spawn
 - invis_corpse_obj
+
+Files Changed
+- spawn_readme
+- spawn_main
 */

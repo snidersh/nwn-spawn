@@ -1,5 +1,5 @@
 //
-// Spawn v6.8
+// Spawn v6.9
 // Spawn Functions
 //
 void InitFlags(object oSpawn, string sSpawnName);
@@ -230,6 +230,7 @@ void InitFlags(object oSpawn, string sSpawnName)
 
     // Initialize SpawnNumber
     int nSpawnNumber = ParseFlagValue(sSpawnName, "SN", 2, dfSpawnNumber);
+    int nSpawnNumberMax = nSpawnNumber;
     int nSpawnNumberMin = ParseSubFlagValue(sSpawnName, "SN", 2, "M", 2, dfSpawnNumberMin);
     int nSpawnAllAtOnce = ParseFlagValue(sSpawnName, "SA", 0, dfSpawnAllAtOnce);
     int nSpawnNumberAtOnce = ParseFlagValue(sSpawnName, "SA", 2, dfSpawnNumberAtOnce);
@@ -240,10 +241,10 @@ void InitFlags(object oSpawn, string sSpawnName)
     }
     if (nSpawnNumberMin > -1)
     {
-        int nRndSpawnNumber = Random(nSpawnNumber + 1);
+        int nRndSpawnNumber = Random(nSpawnNumberMax + 1);
         while (nRndSpawnNumber < nSpawnNumberMin)
         {
-            nRndSpawnNumber = Random(nSpawnNumber + 1);
+            nRndSpawnNumber = Random(nSpawnNumberMax + 1);
         }
         nSpawnNumber = nRndSpawnNumber;
     }
@@ -262,6 +263,8 @@ void InitFlags(object oSpawn, string sSpawnName)
 
     // Record SpawnNumber
     SetLocalInt(oSpawn, "f_SpawnNumber", nSpawnNumber);
+    SetLocalInt(oSpawn, "f_SpawnNumberMin", nSpawnNumberMin);
+    SetLocalInt(oSpawn, "f_SpawnNumberMax", nSpawnNumberMax);
     SetLocalInt(oSpawn, "f_SpawnAllAtOnce", nSpawnAllAtOnce);
     SetLocalInt(oSpawn, "f_SpawnNumberAtOnce", nSpawnNumberAtOnce);
     SetLocalInt(oSpawn, "f_SpawnNumberAtOnceMin", nSpawnNumberAtOnceMin);

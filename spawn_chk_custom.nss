@@ -33,6 +33,26 @@ int SpawnCheckCustom(object oSpawn)
     }
     //
 
+    //
+    if (nSpawnCheckCustom == 1)
+    {
+        if (GetIsDawn() == TRUE || GetIsDay() == TRUE)
+        {
+            nProcessSpawn = TRUE;
+            SetLocalInt(oSpawn, "SpawnProcessed", FALSE);
+        }
+        else
+        {
+            int nSpawnProcessed = GetLocalInt(oSpawn, "SpawnProcessed");
+            if (nSpawnProcessed == FALSE)
+            {
+                nProcessSpawn = TRUE;
+                SetLocalInt(oSpawn, "SpawnProcessed", TRUE);
+            }
+        }
+    }
+    //
+
     // Reproducing Predators
     if (nSpawnCheckCustom == 10)
     {
