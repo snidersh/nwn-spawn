@@ -1,7 +1,6 @@
 
 
-   Spawn v5.0
-   Spawn_Readme
+   Spawn v6.6
 
 
    Neshke Narovken
@@ -77,43 +76,43 @@
      You must use the ResRef
 
    Available Flags:
-     SPn_ISnDn_IDn_FTn_SNnMn_SAnMn_SRnMn|P_SDnMn_CLnMn
-     _RGnMnCn_RWRn_DYnTn_HRnTn_DOD_NOD_PCnR_SF_SUn_FXnDn
-     _PRnTn_PLnTn_EEnRn_EXnRn_SG_CDnTn_LTn_DSnSn_DIn_CMDn
-     _SSnDn_CCn_CPnRn_TRnDn_AEnDn_OEnDn_RSn_FCn
-     _ALnSn_HBn_SLnRn_RHDn_DTn_HLnE_IT_ST_PT_SM_CF
+     SP00_IS0D000_ID00_FT00_SN00M00_SA00_SR00M00_SD00M00_CL00M00_RG000C00
+     _RWR00_DY00T00_HR00T00_DOD_NOD_PC00R_SF_SU00_FX000D000_PR00T0
+     _PL0T00_EE00R00_EX00R00_SG_CD000T0_LT00_DS0S000_DI00_CMD000
+     _SS000D000_CC00_CP00R00_TR00D00_AE000D000_OE000D000_RS00_FC0
+     _AL0S00_HB000_SL00R00_RHD00_DT000_HL_IT_ST_PT_SM_CF
 
 
    Format:
      Flag|OptionalFlag
 
 
-   SP|n
+   SP|00
    : Designates Spawn Waypoint
    : SP is Required on all Spawn Waypoints
    : Performs Spawning every SP01 to SP99 heartbeats
    : Default is SP, 01 Heartbeat : 6 Seconds
    : SP00 Defaults to SP01
 
-   ISn|Dn
+   IS0|D000
    : Initial State
    : Type 0 : Inactive
    : Type 1 : Default : Active
    : Optional Flag: D000
    :   Delay Initial Spawn D000 Minutes
 
-   IDn
+   ID00
    : SpawnID
    : Sets LocalInt "SpawnID" to SpawnID
    : On Spawn Waypoint Object
 
-   FTn
+   FT00
    : Flag Table
    : Use Flags from Table FT00
    : Flags are Defined in 'spawn_cfg_flag'
 
 
-   SNn|Mn
+   SN00|M00
    : Spawn Number
    : Maintains a Spawn of SN00 to SN99 Children
    : Despawns Extra Children
@@ -121,43 +120,39 @@
    :   Minimum Children
    :   Will Randomly Spawn between M00 and SN00 Children
 
-   SA|n|Mn
+   SA|00
    : Spawn All at Once
    : Default is Spawn One Child per Cycle
    : Optional Flag: 00
    :   Spawn 00 Children per Cycle
-   : Optional Flag: M00
-   :   Spawn Minimum M00 per Cycle
 
-   SRn|Mn|P
+   SR00|M00
    : Spawn Radius
    : Randomly Spawns Children in a
    : Location SR00 to SR99 Meters from Waypoint
    : Optional Flag: M00
    :   Minimum Radius, M00 to SR99 Meters
-   : Optional Flag: P
-   :   Spawn Center is Near a Random PC in Area
 
-   SDn|Mn
+   SD00|M00
    : Spawn Delay
    : Delay SD00 to SD99 Minutes between Spawns
    : Optional Flag: M00
    :   Minimum Delay, M00 to SD99 Minutes
 
-   CLn|Mn
+   CL00|M00
    : Child Lifespan
    : Child will Despawn after CL00 Minutes
    : Optional Flag: M00
    :   Child will Despawn after M00 to CL00 Minutes
 
-   DYn|Tn
+   DY00|T00
    : Spawn Day
    : Spawn Only on Day DY00 to DY28
    : Children are Despawned during Invalid Days
    : Optional Flag: T00
    :   Spawn from Day DY00 to Day T00
 
-   HRn|Tn
+   HR00|T00
    : Spawn Hour
    : Spawn Only during Hour HR00 to HR24
    : Children are Despawned during Invalid Hours
@@ -176,28 +171,26 @@
    : Optional Flag: D
    :   Despawn Children at Daybreak
 
-   RW|Rn
+   RW|R00
    : Random Walk
    : Children Wander Randomly
    : Optional Flag: R00
-   :   WARNING:  This is Resource Intensive!!
    :   Wander Range, R00 to R99 Meters
 
-   PC|n|R
+   PC|00|R
    : PC Check
    : Only Spawn Children if PCs are in Area
    : Children are Despawned if no PCs in Area
    : Optional Flag: PC00
    :   Depawn if no PCs in Area for PC00 Minutes
    : Optional Flag: R
+   :   WARNING:  This is Resource Intensive!!
    :   Reset Spawn Point if no PCs are Present
 
-   RGn|Mn|Cn
+   RG000|C00
    : Random Gold
    : Generates Random Amount of Gold on Children
    : From RG000 to RG999 Gold
-   : Optional Flag: M00
-   :   Minimum Gold Amount
    : Optional Flag: C00
    :   Gold Chance C00% to C99%
    :   Default 100% chance
@@ -207,18 +200,18 @@
    : Set Facing of Children to Match Waypoint
    : Default Random Facing
 
-   SUn
+   SU00
    : Spawn Unseen
    : Only Spawn if PCs are not within SU00 to SU99 Meters
 
-   FXn|Dn
+   FX000|D000
    : Spawn Effect
    : Spawn in with Effect FX001 to FX999
    : Effects are Defined in 'spawn_cfg_fxsp'
    : Optional Flag: D000
    :   Despawn with Effect D001 to D999
 
-   PRn|Tn
+   PR00|T0
    : Patrol Route
    : Assign Waypoints Route PR00 to PR99
    : Optional Flag: T0
@@ -241,7 +234,7 @@
    : SC - Run script 000 to 999
    :      Scripts are Defined in 'spawn_sc_patrol'
 
-   EEn|Rn
+   EE00|R00
    : Entrance/Exit
    : Enter and Exit at Waypoint EE00
    : Optional Flag: R
@@ -251,7 +244,7 @@
    : Entrance/Exit Name: Variable
    : Entrance/Exit Tag: EE00
 
-   EXn|Rn
+   EX00|R00
    : Exit
    : Exit at Waypoint EX00
    : Optional Flag: R
@@ -261,7 +254,7 @@
    : Exit Name: Variable
    : Exit Tag: EX00
 
-   PLn|Tn
+   PL0|T00
    : Placeable Object
    : Spawns a Placeable Object with Behavior
    :   Behavior 0: Default Behavior
@@ -279,7 +272,7 @@
    : Waypoint Tag is Defined Group
    : Groups are Defined in 'spawn_cfg_group'
 
-   CDn|Tn
+   CD000|T0
    : Corpse Decay
    : Decay Corpse after CD000 to CD999 Seconds
    : Default No Corpse, Standard Loot Bag
@@ -290,12 +283,12 @@
    :   Type 2: Inventory Items, if PC Killed
    :   Type 3: Inventory & Equipped Items, if PC Killed
 
-   LTn
+   LT00
    : Loot Table
    : Spawn Loot on Children from Table LT00 to LT99
    : Loot Tables are Defined in 'spawn_cfg_loot'
 
-   DSn|Sn
+   DS0|S000
    : Deactivate Spawn
    : Deactivate Spawn based on Condition
    :   Type 0: Deactivate if all Children are Dead
@@ -303,7 +296,7 @@
    :   Type 2: Deactive Spawn until all Children are Dead
    :   Type 3: Deactivate Spawn after DI00 Children
    :   Type 4: Deactivate Spawn after DI00 Minutes
-   :   Type 5: Deactivate Spawn after DI00 Cycles
+   :   Type 5: Deactivate Spawn on Area Load
    : Optional Flag: S000
    :   Run Script 000 to 999 when Spawn Deactivated
    :   Scripts are Defined in 'spawn_sc_deactiv'
@@ -311,10 +304,10 @@
    : Can Reactivate by Manually Calling:
    :   SetLocalInt(oSpawn, "SpawnDeactivated", FALSE);
 
-   DIn
+   DI00
    : Deactivation Information
 
-   CM|Dn
+   CM|D000
    : Spawn Camp
    : Spawns Camp of Creatures and Placeables
    : Waypoint Tag is Defined Camp
@@ -333,19 +326,19 @@
    :   PL0|T00  : Placeable Type
    :             Placeable Trap Disabled
 
-   SSn|Dn
+   SS000|D000
    : Spawn Script
    : Run Script 001 to 999 on Spawn
    : Scripts are Defined in 'spawn_sc_spawn'
    : Optional Flag: D000
    :   Run Script 001 to 999 on Despawn
 
-   DTn
+   DT000
    : Death Script
    : Run Script 001 to 999 on Death
    : Scripts are Defined in 'spawn_sc_death'
 
-   CPn|Rn
+   CP00|R00
    : Spawn Check PCs
    : Check Custom Code to see if Spawn Proceeds
    : Custom Code is Defined in 'spawn_chk_pcs'
@@ -353,18 +346,18 @@
    :   Check all PCs in Radius R00
    :   Default Check all PCs in Area
 
-   CCn
+   CC00
    : Spawn Check Custom
    : Check Custom Code to see if Spawn Proceeds
    : Custom Code is Defined in 'spawn_chk_custom'
 
-   TRn|Dn
+   TR00|D00
    : Spawn Trigger
    : Only Spawns if PC is within 00 Meters
    : Optional Flag: D00
    :   Despawns if PC is not within D00 Meters
 
-   AEn|Dn
+   AE000|D000
    : Spawn Area Effect
    : Area Effects are Defined in 'spawn_cfg_fxae'
    : Waypoint Tag can be "AE" to Spawn only Area Effect
@@ -373,7 +366,7 @@
    :   Duration of 000 means Permanent Area Effect
    :   Default Duration is 005 Seconds
 
-   OEn|Dn
+   OE000|D000
    : Object Effect
    : Object Effects are Defined in 'spawn_cfg_fxobj'
    : Optional Flag: D000
@@ -381,12 +374,12 @@
    :   Duration of 000 means Permanent Object Effect
    :   Default Duration is Permanent
 
-   RSn
+   RS00
    : Random Spawn
    : Percentage Chance Spawn will Occur
    : Default 100% Chance
 
-   FCn
+   FC0
    : Spawn Faction
    : Change Faction of Children:
    :   Faction 0: COMMONER
@@ -397,7 +390,7 @@
    :     Change Faction to Same as Nearest
    :     Object with Tag 'SpawnFaction'
 
-   ALn|Sn
+   AL0|S00
    : Spawn Alignment
    : Shift Alignment of Children
    :   Alignment 0: Neutral
@@ -410,12 +403,12 @@
    :   Shift Alignment by S00
    :   Default Shift by 10
 
-   HBn
+   HB000
    : Heartbeat Script
    : Children will Run Script HB000 each Cycle
    : Scripts are Defined in 'spawn_sc_hbeat'
 
-   SLn|Rn
+   SL00|R00
    : Spawn Location
    : Spawn Children at Waypoint SL00
    : Optional Flag: R
@@ -425,14 +418,14 @@
    : Location Name: Variable
    : Location Tag: SL00
 
-   RH|Dn
+   RH|D00
    : Return Home
    : Child will always Return to Home
    : Optional Flag: D00
    :   Child will Return to Home
    :   Only if further than D00 Meters
 
-   HL|n|E
+   HL|00
    : Heal Children if Not in Combat
    : Optional Value: 00
    :   Heal 00% per Cycle

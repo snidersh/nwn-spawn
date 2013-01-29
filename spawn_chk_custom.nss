@@ -25,6 +25,7 @@ int SpawnCheckCustom(object oSpawn)
 // Only Make Modifications Between These Lines
 // -------------------------------------------
 
+
     // Check 00
     if (nSpawnCheckCustom == 0)
     {
@@ -72,6 +73,16 @@ int SpawnCheckCustom(object oSpawn)
         }
     }
     //
+
+    // Check 01 Sasha Werewolf
+    if (nSpawnCheckCustom == 01)
+    {
+       if(GetObjectByTag("werewolf_sasha") == OBJECT_INVALID && GetObjectByTag("sasha") == OBJECT_INVALID)
+        // Example, Allow Spawn
+           nProcessSpawn = TRUE;
+    }
+    //
+
 
 
 // -------------------------------------------

@@ -1,5 +1,4 @@
 //
-// Spawn v6.8
 // Spawn Global Defaults
 //
 
@@ -10,29 +9,28 @@ void SetGlobalDefaults()
 // -------------------------------------------
 
 
-    // ISnDn
+    // IS
     // InitialState
     int nInitialState = 1;
     int nInitialDelay = -1;
 
-    // FTn
+    // FT
     // FlagTable
     int nFlagTable = -1;
     int nFlagTableNumber = 0;
 
-    // SDn|Mn
+    // SD00|M00
     // SpawnDelay
     int nSpawnDelay = 0;
     int nDelayRandom = -1;
     int nDelayMinimum = 0;
 
-    // SNn|Mn SA|n|Mn
+    // SN00|M00
     // SpawnNumber
     int nSpawnNumber = 1;
     int nSpawnNumberMin = -1;
     int nSpawnAllAtOnce = FALSE;
     int nSpawnNumberAtOnce = 0;
-    int nSpawnNumberAtOnceMin = 0;
 
     // DO|D
     // DayOnly
@@ -44,49 +42,48 @@ void SetGlobalDefaults()
     int nNightOnly = FALSE;
     int nNightOnlyDespawn = FALSE;
 
-    // DYn|Tn
+    // DY00|T00
     // SpawnDay
     int nSpawnDayStart = -1;
     int nSpawnDayEnd = -1;
 
-    // HRn|Tn
+    // HR00|T00
     // SpawnHour
     int nSpawnHourStart = -1;
     int nSpawnHourEnd = -1;
 
-    // RW|Rn
+    // RW|R00
     // RandomWalk
     int nRandomWalk = FALSE;
     int nWanderRange = 0;
 
-    // RH|Dn
+    // RH|D00
     // ReturnHome
     int nReturnHome = FALSE;
     int nReturnHomeRange = 1;
 
-    // PC|n|R
+    // PC|00|R
     // PCCheck
     int nPCCheck = -1;
     int nPCCheckDelay = 0;
     int nPCReset = FALSE;
 
-    // RGn|Mn|Cn
+    // RG000|C00
     // RandomGold
     int nRandomGold = 0;
-    int nRandomGoldMin = 0;
     int nGoldChance = 100;
 
-    // FXn|Dn
+    // FX000|D000
     // SpawnEffects
     int nSpawnEffect = 0;
     int nDespawnEffect = 0;
 
-    // PRn|Tn
+    // PR00|T0
     // PatrolRoutes
     int nPatrolRoute = -1;
     int nRouteType = 0;
 
-    // PLn|Tn
+    // PL0|T00
     // Placeables
     int nPlaceable = -1;
     int nPlaceableType = 0;
@@ -96,94 +93,93 @@ void SetGlobalDefaults()
     // SpawnGroup
     int nSpawnGroup = FALSE;
 
-    // LTn
+    // LT00
     // LootTable
     int nLootTable = -1;
 
-    // DSn|Sn
+    // DS0|S000
     // SpawnDeactivation
     int nDeactivateSpawn = -1;
     int nDeactivateScript = -1;
 
-    // DIn
+    // DI00
     // DeactivationInfo
     int nDeactivationInfo = -1;
 
-    // CLn|Mn
+    // CL00|M00
     // ChildLifespan
     int nChildLifespanMax = -1;
     int nChildLifespanMin = -1;
 
-    // SRn|Mn|P
+    // SR00|M00
     // SpawnRadius
     int nSpawnRadius = 0;
     int nSpawnRadiusMin = 0;
-    int nSpawnNearPCs = 0;
 
-    // SUn
+    // SU00
     // SpawnUnseen
     int nSpawnUnseen = 0;
 
-    // CDn|Tn
+    // CD000|T0
     // CorpseDecay
     int nCorpseDecay = 0;
     int nCorpseDecayType = 0;
 
-    // CM|Dn
+    // CM|D000
     // SpawnCamp
     int nSpawnCamp = FALSE;
     int nCampDecay = 0;
 
-    // SSn|Dn
+    // SS000|D000
     // SpawnScript
     int nSpawnScript = -1;
     int nDespawnScript = -1;
 
-    // DTn
+    // DT000
     // DeathScript
     int nDeathScript = -1;
 
-    // CCn
+    // CC00
     // SpawnCheckCustom
     int nSpawnCheckCustom = -1;
 
-    // CPn|Rn
+    // CP00|R00
     // SpawnCheckPCs
     int nSpawnCheckPCs = -1;
     int nCheckPCsRadius = -1;
 
-    // TRn|Dn
+    // TR00|D00
     // SpawnTrigger
     int nSpawnTrigger = 0;
     int nDespawnTrigger = 0;
 
-    // AEn|Dn
+    // AE000|D000
     // AreaEffect
     int nSpawnAreaEffect = 0;
     int nAreaEffectDuration = 5;
 
-    // OEn|Dn
+    // OE000|D000
     // ObjectEffect
     int nObjectEffect = 0;
     int nObjectEffectDuration = -1;
 
-    // RSn
+    // RS00
     // RandomSpawn
     int nRandomSpawn = 100;
 
-    // FCn
+    // FC0
     // SpawnFaction
     int nSpawnFaction = -1;
 
-    // ALn|Sn
+    // AL0|S00
     int nSpawnAlignment = -1;
     int nAlignmentShift = 10;
 
-    // HBn
+    // HB000
     // HeartbeatScript
     int nHeartbeatScript = -1;
 
-    // SLn|Rn
+    // SL00|R00
     // SpawnLocation
     int nSpawnLocation = -1;
     int nSpawnLocationMin = -1;
@@ -192,17 +188,16 @@ void SetGlobalDefaults()
     // SpawnFacing
     int nSpawnFacing = FALSE;
 
-    // EEn|Rn
+    // EE0|R00
     // EntranceExit
     int nEntranceExit = -1;
     int nEntranceExitMin = -1;
     int nExit = -1;
     int nExitMin = -1;
 
-    // HL|n|E
+    // HL
     // HealChildren
     int nHealChildren = 0;
-    int nHealEffects = FALSE;
 
     // IT
     // SpawnItem
@@ -241,7 +236,6 @@ void SetGlobalDefaults()
     SetLocalInt(oModule, "df_SpawnNumberMin", nSpawnNumberMin);
     SetLocalInt(oModule, "df_SpawnAllAtOnce", nSpawnAllAtOnce);
     SetLocalInt(oModule, "df_SpawnNumberAtOnce", nSpawnNumberAtOnce);
-    SetLocalInt(oModule, "df_SpawnNumberAtOnceMin", nSpawnNumberAtOnceMin);
     SetLocalInt(oModule, "df_DayOnly", nDayOnly);
     SetLocalInt(oModule, "df_DayOnlyDespawn", nDayOnlyDespawn);
     SetLocalInt(oModule, "df_NightOnly", nNightOnly);
@@ -258,7 +252,6 @@ void SetGlobalDefaults()
     SetLocalInt(oModule, "df_PCCheckDelay", nPCCheckDelay);
     SetLocalInt(oModule, "df_PCReset", nPCReset);
     SetLocalInt(oModule, "df_RandomGold", nRandomGold);
-    SetLocalInt(oModule, "df_RandomGoldMin", nRandomGoldMin);
     SetLocalInt(oModule, "df_GoldChance", nGoldChance);
     SetLocalInt(oModule, "df_SpawnEffect", nSpawnEffect);
     SetLocalInt(oModule, "df_DespawnEffect", nDespawnEffect);
@@ -276,7 +269,6 @@ void SetGlobalDefaults()
     SetLocalInt(oModule, "df_ChildLifespanMin", nChildLifespanMin);
     SetLocalInt(oModule, "df_SpawnRadius", nSpawnRadius);
     SetLocalInt(oModule, "df_SpawnRadiusMin", nSpawnRadiusMin);
-    SetLocalInt(oModule, "df_SpawnNearPCs", nSpawnNearPCs);
     SetLocalInt(oModule, "df_SpawnUnseen", nSpawnUnseen);
     SetLocalInt(oModule, "df_CorpseDecay", nCorpseDecay);
     SetLocalInt(oModule, "df_CorpseDecayType", nCorpseDecayType);
@@ -307,7 +299,6 @@ void SetGlobalDefaults()
     SetLocalInt(oModule, "df_Exit", nExit);
     SetLocalInt(oModule, "df_ExitMin", nExitMin);
     SetLocalInt(oModule, "df_HealChildren", nHealChildren);
-    SetLocalInt(oModule, "df_HealEffects", nHealEffects);
     SetLocalInt(oModule, "df_SpawnItem", nSpawnItem);
     SetLocalInt(oModule, "df_SpawnSit", nSpawnSit);
     SetLocalInt(oModule, "df_SpawnPlot", nSpawnPlot);

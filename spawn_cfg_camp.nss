@@ -66,19 +66,19 @@ void SetCampSpawn(object oCamp, string sCamp, location lCamp)
 
         // Set Creature 0 and Spawn Flags
         SetLocalString(oCamp, "CampC0", "NW_GOBCHIEFB");
-        SetLocalString(oCamp, "CampC0_Flags", "SP_RW");
+        SetLocalString(oCamp, "CampC0_Flags", "SP_RW_CD010T1");
 
         // Set Creature 1 and Spawn Flags
         SetLocalString(oCamp, "CampC1", "goblins_low");
-        SetLocalString(oCamp, "CampC1_Flags", "SP_SF_SG");
+        SetLocalString(oCamp, "CampC1_Flags", "SP_SF_SG_CD010T2");
 
         // Set Creature 2 and Spawn Flags
         SetLocalString(oCamp, "CampC2", "goblins_low");
-        SetLocalString(oCamp, "CampC2_Flags", "SP_SF_SG");
+        SetLocalString(oCamp, "CampC2_Flags", "SP_SF_SG_CD010T2");
 
         // Set Creature 3 and Spawn Flags
         SetLocalString(oCamp, "CampC3", "goblins_low");
-        SetLocalString(oCamp, "CampC3_Flags", "SP_SF_SG");
+        SetLocalString(oCamp, "CampC3_Flags", "SP_SF_SG_CD010T2");
     }
     //
 

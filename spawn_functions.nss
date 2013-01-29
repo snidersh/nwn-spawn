@@ -1,5 +1,4 @@
 //
-// Spawn v6.8
 // Spawn Functions
 //
 void InitFlags(object oSpawn, string sSpawnName);
@@ -24,7 +23,6 @@ void AddChild(object oSpawn, object oSpawned);
 //
 int CountPCsInArea(object oArea = OBJECT_INVALID, int nDM = FALSE);
 int CountPCsInRadius(location lCenter, float fRadius, int nDM = FALSE);
-object GetRandomPCInArea(object oArea, object oSpawn);
 void TransferItem(object oCreature, object oTarget, object oItem, int nCreatureItem);
 void TransferAllItems(object oCreature, object oTarget, int nCreatureItems, int nEquippedItems);
 void RandomWalk(object oSpawn, object oSpawned, float fWalkingRadius, int nRun);
@@ -69,7 +67,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     int dfSpawnNumberMin = GetLocalInt(oModule, "df_SpawnNumberMin");
     int dfSpawnAllAtOnce = GetLocalInt(oModule, "df_SpawnAllAtOnce");
     int dfSpawnNumberAtOnce = GetLocalInt(oModule, "df_SpawnNumberAtOnce");
-    int dfSpawnNumberAtOnceMin = GetLocalInt(oModule, "df_SpawnNumberAtOnceMin");
     int dfDayOnly = GetLocalInt(oModule, "df_DayOnly");
     int dfDayOnlyDespawn = GetLocalInt(oModule, "df_DayOnlyDespawn");
     int dfNightOnly = GetLocalInt(oModule, "df_NightOnly");
@@ -86,7 +83,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     int dfPCCheckDelay = GetLocalInt(oModule, "df_PCCheckDelay");
     int dfPCReset = GetLocalInt(oModule, "df_PCReset");
     int dfRandomGold = GetLocalInt(oModule, "df_RandomGold");
-    int dfRandomGoldMin = GetLocalInt(oModule, "df_RandomGoldMin");
     int dfGoldChance = GetLocalInt(oModule, "df_GoldChance");
     int dfSpawnEffect = GetLocalInt(oModule, "df_SpawnEffect");
     int dfDespawnEffect = GetLocalInt(oModule, "df_DespawnEffect");
@@ -104,7 +100,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     int dfChildLifespanMin = GetLocalInt(oModule, "df_ChildLifespanMin");
     int dfSpawnRadius = GetLocalInt(oModule, "df_SpawnRadius");
     int dfSpawnRadiusMin = GetLocalInt(oModule, "df_SpawnRadiusMin");
-    int dfSpawnNearPCs = GetLocalInt(oModule, "df_SpawnNearPCs");
     int dfSpawnUnseen = GetLocalInt(oModule, "df_SpawnUnseen");
     int dfCorpseDecay = GetLocalInt(oModule, "df_CorpseDecay");
     int dfCorpseDecayType = GetLocalInt(oModule, "df_CorpseDecayType");
@@ -135,7 +130,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     int dfExit = GetLocalInt(oModule, "df_Exit");
     int dfExitMin = GetLocalInt(oModule, "df_ExitMin");
     int dfHealChildren = GetLocalInt(oModule, "df_HealChildren");
-    int dfHealEffects = GetLocalInt(oModule, "df_HealEffects");
     int dfSpawnItem = GetLocalInt(oModule, "df_SpawnItem");
     int dfSpawnSit = GetLocalInt(oModule, "df_SpawnSit");
     int dfSpawnMerchant = GetLocalInt(oModule, "df_SpawnMerchant");
@@ -233,7 +227,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     int nSpawnNumberMin = ParseSubFlagValue(sSpawnName, "SN", 2, "M", 2, dfSpawnNumberMin);
     int nSpawnAllAtOnce = ParseFlagValue(sSpawnName, "SA", 0, dfSpawnAllAtOnce);
     int nSpawnNumberAtOnce = ParseFlagValue(sSpawnName, "SA", 2, dfSpawnNumberAtOnce);
-    int nSpawnNumberAtOnceMin = ParseSubFlagValue(sSpawnName, "SA", 0, "M", 0, dfSpawnNumberAtOnceMin);
     if (nSpawnNumberMin > nSpawnNumber)
     {
         nSpawnNumberMin = -1;
@@ -255,16 +248,11 @@ void InitFlags(object oSpawn, string sSpawnName)
     {
         nSpawnNumberAtOnce = 0;
     }
-    if (nSpawnNumberAtOnceMin > nSpawnNumberAtOnce)
-    {
-        nSpawnNumberAtOnceMin = 0;
-    }
 
     // Record SpawnNumber
     SetLocalInt(oSpawn, "f_SpawnNumber", nSpawnNumber);
     SetLocalInt(oSpawn, "f_SpawnAllAtOnce", nSpawnAllAtOnce);
     SetLocalInt(oSpawn, "f_SpawnNumberAtOnce", nSpawnNumberAtOnce);
-    SetLocalInt(oSpawn, "f_SpawnNumberAtOnceMin", nSpawnNumberAtOnceMin);
 
     // Initialize Day/Night Only
     int nDayOnly = ParseFlagValue(sSpawnName, "DO", 0, dfDayOnly);
@@ -338,12 +326,10 @@ void InitFlags(object oSpawn, string sSpawnName)
 
     // Initialize RandomGold
     int nRandomGold = ParseFlagValue(sSpawnName, "RG", 3, dfRandomGold);
-    int nRandomGoldMin = ParseSubFlagValue(sSpawnName, "RG", 0, "M", 0, dfRandomGoldMin);
     int nGoldChance = ParseSubFlagValue(sSpawnName, "RG", 3, "C", 2, dfGoldChance);
 
     // Record RandomGold
     SetLocalInt(oSpawn, "f_RandomGold", nRandomGold);
-    SetLocalInt(oSpawn, "f_RandomGoldMin", nRandomGoldMin);
     SetLocalInt(oSpawn, "f_GoldChance", nGoldChance);
 
     // Initialize SpawnEffects
@@ -421,7 +407,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     // Initialize SpawnRadius
     float fSpawnRadius = IntToFloat(ParseFlagValue(sSpawnName, "SR", 2, dfSpawnRadius));
     float fSpawnRadiusMin = IntToFloat(ParseSubFlagValue(sSpawnName, "SR", 2, "M", 2, dfSpawnRadiusMin));
-    int nSpawnNearPCs = ParseSubFlagValue(sSpawnName, "SR", 0, "P", 0, dfSpawnNearPCs);
     if (fSpawnRadiusMin > fSpawnRadius)
     {
         fSpawnRadiusMin = 0.0;
@@ -430,7 +415,6 @@ void InitFlags(object oSpawn, string sSpawnName)
     // Record SpawnRadius
     SetLocalFloat(oSpawn, "f_SpawnRadius", fSpawnRadius);
     SetLocalFloat(oSpawn, "f_SpawnRadiusMin", fSpawnRadiusMin);
-    SetLocalInt(oSpawn, "f_SpawnNearPCs", nSpawnNearPCs);
 
     // Initialize SpawnUnseen
     float fSpawnUnseen = IntToFloat(ParseFlagValue(sSpawnName, "SU", 2, dfSpawnUnseen));
@@ -586,7 +570,6 @@ void InitFlags(object oSpawn, string sSpawnName)
 
     // Initialize HealChildren
     int nHealChildren = ParseFlagValue(sSpawnName, "HL", 0, dfHealChildren);
-    int nHealEffects = ParseSubFlagValue(sSpawnName, "HL", 0, "E", 0, dfHealEffects);
     if (nHealChildren == 1)
     {
         nHealChildren == 100;
@@ -594,7 +577,6 @@ void InitFlags(object oSpawn, string sSpawnName)
 
     // Record HealChildren
     SetLocalInt(oSpawn, "f_HealChildren", nHealChildren);
-    SetLocalInt(oSpawn, "f_HealEffects", nHealEffects);
 
     // Initialize SpawnItem
     int nSpawnItem = ParseFlagValue(sSpawnName, "IT", 0, dfSpawnItem);
@@ -713,16 +695,6 @@ int CountPCsInRadius(location lCenter, float fRadius, int nDM = FALSE)
         oPC = GetNextObjectInShape(SHAPE_SPHERE, fRadius, lCenter);
     }
     return nPCs;
-}
-//
-
-// This Function Returns a Random PC from Area
-object GetRandomPCInArea(object oArea, object oSpawn)
-{
-    int nPCsInArea = CountPCsInArea(oArea, TRUE);
-    int nNth = Random(nPCsInArea) + 1;
-    object oRandomPC = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_IS_PC, oSpawn, nNth);
-    return oRandomPC;
 }
 //
 

@@ -1,7 +1,6 @@
 //
 //
-//   Spawn v6.8
-//   Spawn Main
+//   Spawn v6.6
 //
 //   Do NOT Modify this File
 //   See 'spawn__readme' for Instructions
@@ -34,7 +33,6 @@ int SetSpawns(location lBase);
 string PadIntToString(int nInt, int nDigits);
 int CountPCsInArea(object oArea = OBJECT_INVALID, int nDM = FALSE);
 int CountPCsInRadius(location lCenter, float fRadius, int nDM = FALSE);
-object GetRandomPCInArea(object oArea, object oSpawn);
 int ParseFlagValue(string sName, string sFlag, int nDigits, int nDefault);
 int ParseSubFlagValue(string sName, string sFlag, int nDigits, string sSubFlag, int nSubDigits, int nDefault);
 int IsBetweenDays(int nCheckDay, int nDayStart, int nDayEnd);
@@ -212,7 +210,7 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
     {
         if (GetLocalInt(oSpawn, "InitialDelaySet") == FALSE)
         {
-            nNextSpawnTick = nProcessesPerMinute * nInitialDelay;
+            nNextSpawnTick = Random(nProcessesPerMinute * nInitialDelay) + 1;
             SetLocalInt(oSpawn, "NextSpawnTick", nNextSpawnTick);
             SetLocalInt(oSpawn, "InitialDelaySet", TRUE);
         }
@@ -227,7 +225,6 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
     int nSpawnNumber = GetLocalInt(oSpawn, "f_SpawnNumber");
     int nSpawnAllAtOnce = GetLocalInt(oSpawn, "f_SpawnAllAtOnce");
     int nSpawnNumberAtOnce = GetLocalInt(oSpawn, "f_SpawnNumberAtOnce");
-    int nSpawnNumberAtOnceMin = GetLocalInt(oSpawn, "f_SpawnNumberAtOnceMin");
 
     // Initialize Day/Night Only
     int nDayOnly = GetLocalInt(oSpawn, "f_DayOnly");
@@ -259,7 +256,6 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
     // Initialize RandomGold
     int nGoldAmount;
     int nRandomGold = GetLocalInt(oSpawn, "f_RandomGold");
-    int nRandomGoldMin = GetLocalInt(oSpawn, "f_RandomGoldMin");
     int nGoldChance = GetLocalInt(oSpawn, "f_GoldChance");
 
     // Initialize Spawn Effects
@@ -299,7 +295,6 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
     // Initialize SpawnRadius
     float fSpawnRadius = GetLocalFloat(oSpawn, "f_SpawnRadius");
     float fSpawnRadiusMin = GetLocalFloat(oSpawn, "f_SpawnRadiusMin");
-    int nSpawnNearPCs = GetLocalInt(oSpawn, "f_SpawnNearPCs");
 
     // Initialize SpawnUnseen
     float fSpawnUnseen = GetLocalFloat(oSpawn, "f_SpawnUnseen");
@@ -372,9 +367,7 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
 
     // Initialize HealChildren
     int nHealAmount;
-    effect eEffect;
     int nHealChildren = GetLocalInt(oSpawn, "f_HealChildren");
-    int nHealEffects = GetLocalInt(oSpawn, "f_HealEffects");
 
     // Initialize SpawnItem
     int nSpawnItem = GetLocalInt(oSpawn, "f_SpawnItem");
@@ -663,10 +656,6 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
                                 {
                                     // Calculate Gold to Drop
                                     nGoldAmount = Random(nRandomGold + 1);
-                                    while (nGoldAmount < nRandomGoldMin)
-                                    {
-                                        nGoldAmount = Random(nRandomGold + 1);
-                                    }
                                     // Give Gold
                                     CreateItemOnObject("nw_it_gold001", oCreature, nGoldAmount);
                                 }
@@ -726,15 +715,6 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
                 {
                     nHealAmount = GetMaxHitPoints(oCreature) * (nHealChildren / 100);
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectHeal(nHealAmount), oCreature, 0.0);
-                    if (nHealEffects == TRUE)
-                    {
-                        eEffect = GetFirstEffect(oCreature);
-                        while (GetIsEffectValid(eEffect) == TRUE)
-                        {
-                            RemoveEffect(oCreature, eEffect);
-                            eEffect = GetNextEffect(oCreature);
-                        }
-                    }
                 }
             }
 
@@ -935,17 +915,6 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
                     }
                     SetLocalInt(oSpawn, "SpawnAgeTick", nSpawnAgeTick);
                 break;
-                // Deactivate after DI00 Cycles
-                case 5:
-                    nSpawnAgeTick = GetLocalInt(oSpawn, "SpawnAgeTick");
-                    nSpawnAgeTick++;
-                    if (nSpawnAgeTick >= nDeactivationInfo)
-                    {
-                        nSpawnDeactivated = TRUE;
-                        nRunDeactivateScript = TRUE;
-                        nSpawnBlock = TRUE;
-                    }
-                    SetLocalInt(oSpawn, "SpawnAgeTick", nSpawnAgeTick);
             }
         }
         else
@@ -1090,13 +1059,10 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
                     {
                         if (nSpawnNumberAtOnce > 0)
                         {
-                            if (nSpawnNumberAtOnceMin == 0 || nEmptyChildSlots >= nSpawnNumberAtOnceMin)
+                            // Spawn Sets of Creatures
+                            for (jCount = 1; (jCount <= nEmptyChildSlots) && (jCount <= nSpawnNumberAtOnce); jCount++)
                             {
-                                // Spawn Sets of Creatures
-                                for (jCount = 1; (jCount <= nEmptyChildSlots) && (jCount <= nSpawnNumberAtOnce); jCount++)
-                                {
-                                    DelayCommand(0.0, DoSpawn(oSpawn));
-                                }
+                                DelayCommand(0.0, DoSpawn(oSpawn));
                             }
                         }
                         else
@@ -1115,7 +1081,7 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
                 if (nDelayRandom == TRUE)
                 {
                     // Setup Next Spawn Randomly
-                    nNextSpawnTick = Random(nProcessesPerMinute * nSpawnDelay) + 1;
+                    nNextSpawnTick = -1;
                     while (nNextSpawnTick < nProcessesPerMinute * nDelayMinimum)
                     {
                         nNextSpawnTick = Random(nProcessesPerMinute * nSpawnDelay) + 1;
@@ -1140,7 +1106,7 @@ void DoSpawn(object oSpawn)
     vector vSpawn, vRadius;
     location lRadius, lEntranceExit, lSpawnLocation;
     float fRadius, fRadiusX, fRadiusY, fSpawnAngle;
-    object oSpawned, oFaction, oEntranceExit, oSpawnLocation, oPC;
+    object oSpawned, oFaction, oEntranceExit, oSpawnLocation;
     effect eSpawn, eArea, eObject;
     int nGoldAmount, nObjectType, nChildLifespan, nRadiusValid;
     int nRndEntranceExit, nChildrenSpawned, nRndSpawnLocation, nSpawnCount;
@@ -1156,11 +1122,9 @@ void DoSpawn(object oSpawn)
     int nSpawnNumber = GetLocalInt(oSpawn, "f_SpawnNumber");
     float fSpawnRadius = GetLocalFloat(oSpawn, "f_SpawnRadius");
     float fSpawnRadiusMin = GetLocalFloat(oSpawn, "f_SpawnRadiusMin");
-    int nSpawnNearPCs = GetLocalInt(oSpawn, "f_SpawnNearPCs");
     int nRandomWalk = GetLocalInt(oSpawn, "f_RandomWalk");
     float fWanderRange = GetLocalFloat(oSpawn, "f_WanderRange");
     int nRandomGold = GetLocalInt(oSpawn, "f_RandomGold");
-    int nRandomGoldMin = GetLocalInt(oSpawn, "f_RandomGoldMin");
     int nGoldChance = GetLocalInt(oSpawn, "f_GoldChance");
     float fSpawnFacing = GetLocalFloat(oSpawn, "f_SpawnFacing");
     int nFacing = GetLocalInt(oSpawn, "f_Facing");
@@ -1226,16 +1190,6 @@ void DoSpawn(object oSpawn)
     // Set up Location
     if (fSpawnRadius > 0.0)
     {
-        // Check SpawnNearPCs
-        if (nSpawnNearPCs == TRUE)
-        {
-            oPC =  GetRandomPCInArea(OBJECT_SELF, oSpawn);
-            if (oPC != OBJECT_INVALID)
-            {
-                lSpawn = GetLocation(oPC);
-            }
-        }
-
         vSpawn = GetPositionFromLocation(lSpawn);
         fSpawnAngle = IntToFloat(Random(361));
         if (fSpawnRadiusMin == fSpawnRadius)
@@ -1493,10 +1447,6 @@ void DoSpawn(object oSpawn)
             {
                 // Calculate Gold to Drop
                 nGoldAmount = Random(nRandomGold + 1);
-                while (nGoldAmount < nRandomGoldMin)
-                {
-                    nGoldAmount = Random(nRandomGold + 1);
-                }
 
                 // Give Gold
                 CreateItemOnObject("nw_it_gold001", oSpawned, nGoldAmount);
@@ -1689,7 +1639,6 @@ object CampSpawn(object oSpawn, string sCamp, location lCamp)
         nRandomWalk = ParseFlagValue(sFlags, "RW", 0, 0);
         fCorpseDecay = IntToFloat(ParseFlagValue(sFlags, "CD", 3, 0));
         nCorpseDecayType = ParseSubFlagValue(sFlags, "CD", 3, "T", 1, 0);
-        nDeathScript = ParseFlagValue(sFlags, "DT", 3, -1);
 
         // Spawn Group
         if (nSpawnGroup == TRUE)
