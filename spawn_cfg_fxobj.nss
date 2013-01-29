@@ -46,7 +46,7 @@ effect ObjectEffect(object oSpawn)
 // Only Make Modifications Between These Lines
 //
 
-    // Return the AreaEffect
+    // Return the ObjectEffect
     return eObjectEffect;
 }
 

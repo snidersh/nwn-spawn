@@ -306,6 +306,14 @@ string SpawnGroup(object oSpawn, string sTemplate)
     }
     //
 
+    //
+    if (sTemplate == "kobolds")
+    {
+        int nKobold = Random(6) + 1;
+        sRetTemplate = "NW_KOBOLD00" + IntToString(nKobold);
+    }
+    //
+
 
 // -------------------------------------------
 // Only Make Modifications Between These Lines
