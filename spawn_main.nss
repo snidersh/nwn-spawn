@@ -1,6 +1,6 @@
 //
 //
-//   Spawn v6.9
+//   Spawn v7.0
 //   Spawn Main
 //
 //   Do NOT Modify this File
@@ -725,9 +725,9 @@ void ProcessSpawn(object oSpawn, int nProcessFrequency)
             // Heal Children
             if (nHealChildren > 0)
             {
-                if (GetIsInCombat(oCreature) == FALSE)
+                if (GetIsInCombat(oCreature) == FALSE && (GetMaxHitPoints(oCreature) != GetCurrentHitPoints(oCreature)))
                 {
-                    nHealAmount = GetMaxHitPoints(oCreature) * (nHealChildren / 100);
+                    nHealAmount = FloatToInt(IntToFloat(GetMaxHitPoints(oCreature)) * (IntToFloat(nHealChildren) / 100.0));
                     ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectHeal(nHealAmount), oCreature, 0.0);
                     if (nHealEffects == TRUE)
                     {

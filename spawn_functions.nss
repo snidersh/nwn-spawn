@@ -1,5 +1,5 @@
 //
-// Spawn v6.9
+// Spawn v7.0
 // Spawn Functions
 //
 void InitFlags(object oSpawn, string sSpawnName);

@@ -39,6 +39,47 @@ void main()
     }
     //
 
+    //
+    if (nHeartbeatScript == 2)
+    {
+        object oCentralObject;
+        location lCentralObject, lLocation;
+        vector vCentralObject, vLocation;
+        float fAngle, fRadius, fLocationX, fLocationY;
+
+        // Add Multiple Actions per HeartbeatScript
+        int nNth;
+        for (nNth = 1; nNth <= 10; nNth++)
+        {
+            // Central Object
+            oCentralObject = GetObjectByTag("CentralObject");
+            lCentralObject = GetLocation(oCentralObject);
+            vCentralObject = GetPositionFromLocation(lCentralObject);
+
+            // Retreive and Increment Angle by 10 Degrees
+            fAngle = GetLocalFloat(OBJECT_SELF, "Angle");
+            fAngle = fAngle + 5.0;
+            if (fAngle >= 360.0)
+            {
+                fAngle = 0.0;
+            }
+
+            // Create New Location
+            fRadius = 5.0;
+            fLocationX = fRadius * cos(fAngle);
+            fLocationY = fRadius * sin(fAngle);
+            vLocation = Vector(fLocationX, fLocationY, 0.0);
+            lLocation = Location(GetArea(OBJECT_SELF), vCentralObject + vLocation, 0.0);
+
+            // Move to New Location
+            ActionMoveToLocation(lLocation, TRUE);
+
+            // Record New Angle
+            SetLocalFloat(OBJECT_SELF, "Angle", fAngle);
+        }
+    }
+    //
+
     // Script 001 - Flavor text for dockworkers
     if (nHeartbeatScript == 1)
     {
